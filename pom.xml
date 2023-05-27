@@ -5,11 +5,16 @@
     <groupId>com.gsm</groupId>
     <artifactId>im</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <properties>
         <skipTests>true</skipTests>
     </properties>
+
+    <modules>
+        <module>common</module>
+        <module>service</module>
+    </modules>
 
     <repositories>
         <repository>
