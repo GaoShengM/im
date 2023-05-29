@@ -1,7 +1,8 @@
 package com.gsm.im.service.user.dao.mapper;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lld.im.service.user.dao.ImUserDataEntity;
+import com.gsm.im.service.user.dao.ImUserDataEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
