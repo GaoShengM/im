@@ -24,6 +24,7 @@
         </dependency>
 
 
+
         <!-- spring boot web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -60,6 +61,7 @@
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>
