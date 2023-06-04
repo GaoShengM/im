@@ -1,13 +1,13 @@
 package com.gsm.im.service.group.model.req;
 
-import com.lld.im.common.model.RequestBase;
+import com.gsm.im.common.model.RequestBase;
 import lombok.Data;
 
 import java.util.List;
 
 /**
  * @description:
- * @author: lld
+ * @author: gsm
  * @version: 1.0
  */
 @Data

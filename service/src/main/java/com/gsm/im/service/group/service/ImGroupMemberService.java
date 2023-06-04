@@ -1,17 +1,12 @@
 package com.gsm.im.service.group.service;
 
-import com.lld.im.common.ResponseVO;
-import com.lld.im.service.group.model.req.*;
-import com.lld.im.service.group.model.resp.GetRoleInGroupResp;
+import com.gsm.im.common.ResponseVO;
+import com.gsm.im.service.group.model.req.*;
+import com.gsm.im.service.group.model.resp.GetRoleInGroupResp;
 
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
 public interface ImGroupMemberService {
 
     public ResponseVO importGroupMember(ImportGroupMemberReq req);

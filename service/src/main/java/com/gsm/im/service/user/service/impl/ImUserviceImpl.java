@@ -1,6 +1,5 @@
 package com.gsm.im.service.user.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gsm.im.common.ResponseVO;
 import com.gsm.im.common.enums.DelFlagEnum;
@@ -9,7 +8,10 @@ import com.gsm.im.common.exception.ApplicationException;
 import com.gsm.im.service.group.service.ImGroupService;
 import com.gsm.im.service.user.dao.ImUserDataEntity;
 import com.gsm.im.service.user.dao.mapper.ImUserDataMapper;
-import com.gsm.im.service.user.model.req.*;
+import com.gsm.im.service.user.model.req.DeleteUserReq;
+import com.gsm.im.service.user.model.req.GetUserInfoReq;
+import com.gsm.im.service.user.model.req.ImportUserReq;
+import com.gsm.im.service.user.model.req.ModifyUserInfoReq;
 import com.gsm.im.service.user.model.resp.GetUserInfoResp;
 import com.gsm.im.service.user.model.resp.ImportUserResp;
 import com.gsm.im.service.user.service.ImUserService;
@@ -21,11 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @description:
- * @author: lld
+ * @author: gsm
  * @version: 1.0
  */
 @Service

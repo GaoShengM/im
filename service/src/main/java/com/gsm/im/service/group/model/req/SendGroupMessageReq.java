@@ -1,13 +1,8 @@
 package com.gsm.im.service.group.model.req;
 
-import com.lld.im.common.model.RequestBase;
+import com.gsm.im.common.model.RequestBase;
 import lombok.Data;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
 @Data
 public class SendGroupMessageReq extends RequestBase {
 

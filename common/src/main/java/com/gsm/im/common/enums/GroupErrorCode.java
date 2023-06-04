@@ -1,6 +1,6 @@
 package com.gsm.im.common.enums;
 
-import com.lld.im.common.exception.ApplicationExceptionEnum;
+import com.gsm.im.common.exception.ApplicationExceptionEnum;
 
 /**
  * @author: Chackylee

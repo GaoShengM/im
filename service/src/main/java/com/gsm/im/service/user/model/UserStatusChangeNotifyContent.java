@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @description: status区分是上线还是下线
- * @author: lld
+ * @author: gsm
  * @version: 1.0
  */
 @Data

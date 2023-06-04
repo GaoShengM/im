@@ -50,9 +50,8 @@ public class GlobalExceptionHandler {
         ResponseVO resultBean =new ResponseVO();
         resultBean.setCode(BaseErrorCode.PARAMETER_ERROR.getCode());
         for (ConstraintViolation<?> constraintViolation : constraintViolations) {
-            PathImpl pathImpl = (PathImpl) constraintViolation.getPropertyPath();
+            String paramName = constraintViolation.getPropertyPath().toString();
             // 读取参数字段，constraintViolation.getMessage() 读取验证注解中的message值
-            String paramName = pathImpl.getLeafNode().getName();
             String message = "参数{".concat(paramName).concat("}").concat(constraintViolation.getMessage());
             resultBean.setMsg(message);
 

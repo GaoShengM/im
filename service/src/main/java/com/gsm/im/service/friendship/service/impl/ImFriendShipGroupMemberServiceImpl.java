@@ -1,16 +1,16 @@
 package com.gsm.im.service.friendship.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lld.im.common.ResponseVO;
-import com.lld.im.service.friendship.dao.ImFriendShipGroupEntity;
-import com.lld.im.service.friendship.dao.ImFriendShipGroupMemberEntity;
-import com.lld.im.service.friendship.dao.mapper.ImFriendShipGroupMemberMapper;
-import com.lld.im.service.friendship.model.req.AddFriendShipGroupMemberReq;
-import com.lld.im.service.friendship.model.req.DeleteFriendShipGroupMemberReq;
-import com.lld.im.service.friendship.service.ImFriendShipGroupMemberService;
-import com.lld.im.service.friendship.service.ImFriendShipGroupService;
-import com.lld.im.service.user.dao.ImUserDataEntity;
-import com.lld.im.service.user.service.ImUserService;
+import com.gsm.im.common.ResponseVO;
+import com.gsm.im.service.friendship.dao.ImFriendShipGroupEntity;
+import com.gsm.im.service.friendship.dao.ImFriendShipGroupMemberEntity;
+import com.gsm.im.service.friendship.dao.mapper.ImFriendShipGroupMemberMapper;
+import com.gsm.im.service.friendship.model.req.AddFriendShipGroupMemberReq;
+import com.gsm.im.service.friendship.model.req.DeleteFriendShipGroupMemberReq;
+import com.gsm.im.service.friendship.service.ImFriendShipGroupMemberService;
+import com.gsm.im.service.friendship.service.ImFriendShipGroupService;
+import com.gsm.im.service.user.dao.ImUserDataEntity;
+import com.gsm.im.service.user.service.ImUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

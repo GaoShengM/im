@@ -1,14 +1,9 @@
 package com.gsm.im.service.group.service;
 
-import com.lld.im.common.ResponseVO;
-import com.lld.im.service.group.dao.ImGroupEntity;
-import com.lld.im.service.group.model.req.*;
+import com.gsm.im.common.ResponseVO;
+import com.gsm.im.service.group.dao.ImGroupEntity;
+import com.gsm.im.service.group.model.req.*;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
 public interface ImGroupService {
 
     public ResponseVO importGroup(ImportGroupReq req);

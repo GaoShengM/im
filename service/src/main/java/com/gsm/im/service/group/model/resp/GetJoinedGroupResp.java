@@ -1,6 +1,6 @@
 package com.gsm.im.service.group.model.resp;
 
-import com.lld.im.service.group.dao.ImGroupEntity;
+import com.gsm.im.service.group.dao.ImGroupEntity;
 import lombok.Data;
 
 import java.util.List;

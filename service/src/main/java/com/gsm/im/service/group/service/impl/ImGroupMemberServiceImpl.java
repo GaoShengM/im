@@ -4,22 +4,22 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lld.im.common.ResponseVO;
-import com.lld.im.common.enums.GroupErrorCode;
-import com.lld.im.common.enums.GroupMemberRoleEnum;
-import com.lld.im.common.enums.GroupStatusEnum;
-import com.lld.im.common.enums.GroupTypeEnum;
-import com.lld.im.common.exception.ApplicationException;
-import com.lld.im.service.group.dao.ImGroupEntity;
-import com.lld.im.service.group.dao.ImGroupMemberEntity;
-import com.lld.im.service.group.dao.mapper.ImGroupMemberMapper;
-import com.lld.im.service.group.model.req.*;
-import com.lld.im.service.group.model.resp.AddMemberResp;
-import com.lld.im.service.group.model.resp.GetRoleInGroupResp;
-import com.lld.im.service.group.service.ImGroupMemberService;
-import com.lld.im.service.group.service.ImGroupService;
-import com.lld.im.service.user.dao.ImUserDataEntity;
-import com.lld.im.service.user.service.ImUserService;
+import com.gsm.im.common.ResponseVO;
+import com.gsm.im.common.enums.GroupErrorCode;
+import com.gsm.im.common.enums.GroupMemberRoleEnum;
+import com.gsm.im.common.enums.GroupStatusEnum;
+import com.gsm.im.common.enums.GroupTypeEnum;
+import com.gsm.im.common.exception.ApplicationException;
+import com.gsm.im.service.group.dao.ImGroupEntity;
+import com.gsm.im.service.group.dao.ImGroupMemberEntity;
+import com.gsm.im.service.group.dao.mapper.ImGroupMemberMapper;
+import com.gsm.im.service.group.model.req.*;
+import com.gsm.im.service.group.model.resp.AddMemberResp;
+import com.gsm.im.service.group.model.resp.GetRoleInGroupResp;
+import com.gsm.im.service.group.service.ImGroupMemberService;
+import com.gsm.im.service.group.service.ImGroupService;
+import com.gsm.im.service.user.dao.ImUserDataEntity;
+import com.gsm.im.service.user.service.ImUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -29,11 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-/**
- * @description:
- * @author: lld
- * @version: 1.0
- */
 @Service
 @Slf4j
 public class ImGroupMemberServiceImpl implements ImGroupMemberService {
@@ -86,9 +81,9 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 
     /**
      * @param
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description: 添加群成员，内部调用
-     * @author lld
+     * @author gsm
      */
     @Override
     @Transactional
@@ -104,7 +99,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
             queryOwner.eq("group_id", groupId);
             queryOwner.eq("app_id", appId);
             queryOwner.eq("role", GroupMemberRoleEnum.OWNER.getCode());
-            Integer ownerNum = imGroupMemberMapper.selectCount(queryOwner);
+            Long ownerNum = imGroupMemberMapper.selectCount(queryOwner);
             if (ownerNum > 0) {
                 return ResponseVO.errorResponse(GroupErrorCode.GROUP_IS_HAVE_OWNER);
             }
@@ -147,9 +142,9 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 
     /**
      * @param
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description: 删除群成员，内部调用
-     * @author lld
+     * @author gsm
      */
     @Override
     public ResponseVO removeGroupMember(String groupId, Integer appId, String memberId) {
@@ -175,7 +170,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 
     /**
      * @param [groupId, memberId, appId]
-     * @return com.lld.im.common.ResponseVO<com.lld.im.service.group.model.resp.GetRoleInGroupResp>
+     * @return com.gsm.im.common.ResponseVO<com.gsm.im.service.group.model.resp.GetRoleInGroupResp>
      * @description 查询用户在群内的角色
      * @author chackylee
      */
@@ -225,10 +220,10 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
 
     /**
      * @param
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description: 添加群成员，拉人入群的逻辑，直接进入群聊。如果是后台管理员，则直接拉入群，
      * 否则只有私有群可以调用本接口，并且群成员也可以拉人入群.只有私有群可以调用本接口
-     * @author lld
+     * @author gsm
      */
     @Override
     public ResponseVO addMember(AddGroupMemberReq req) {

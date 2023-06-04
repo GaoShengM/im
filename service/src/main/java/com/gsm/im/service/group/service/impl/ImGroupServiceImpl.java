@@ -3,21 +3,28 @@ package com.gsm.im.service.group.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.lld.im.common.ResponseVO;
-import com.lld.im.common.enums.GroupErrorCode;
-import com.lld.im.common.enums.GroupMemberRoleEnum;
-import com.lld.im.common.enums.GroupStatusEnum;
-import com.lld.im.common.enums.GroupTypeEnum;
-import com.lld.im.common.exception.ApplicationException;
-import com.lld.im.common.model.ClientInfo;
-import com.lld.im.service.group.dao.ImGroupEntity;
-import com.lld.im.service.group.dao.mapper.ImGroupMapper;
-import com.lld.im.service.group.model.req.*;
-import com.lld.im.service.group.model.resp.GetGroupResp;
-import com.lld.im.service.group.model.resp.GetJoinedGroupResp;
-import com.lld.im.service.group.model.resp.GetRoleInGroupResp;
-import com.lld.im.service.group.service.ImGroupMemberService;
-import com.lld.im.service.group.service.ImGroupService;
+import com.gsm.im.common.ResponseVO;
+import com.gsm.im.common.enums.GroupErrorCode;
+import com.gsm.im.common.enums.GroupMemberRoleEnum;
+import com.gsm.im.common.enums.GroupStatusEnum;
+import com.gsm.im.common.enums.GroupTypeEnum;
+import com.gsm.im.common.exception.ApplicationException;
+import com.gsm.im.service.group.dao.ImGroupEntity;
+import com.gsm.im.service.group.dao.mapper.ImGroupMapper;
+import com.gsm.im.service.group.model.req.CreateGroupReq;
+import com.gsm.im.service.group.model.req.DestroyGroupReq;
+import com.gsm.im.service.group.model.req.GetGroupReq;
+import com.gsm.im.service.group.model.req.GetJoinedGroupReq;
+import com.gsm.im.service.group.model.req.GroupMemberDto;
+import com.gsm.im.service.group.model.req.ImportGroupReq;
+import com.gsm.im.service.group.model.req.MuteGroupReq;
+import com.gsm.im.service.group.model.req.TransferGroupReq;
+import com.gsm.im.service.group.model.req.UpdateGroupReq;
+import com.gsm.im.service.group.model.resp.GetGroupResp;
+import com.gsm.im.service.group.model.resp.GetJoinedGroupResp;
+import com.gsm.im.service.group.model.resp.GetRoleInGroupResp;
+import com.gsm.im.service.group.service.ImGroupMemberService;
+import com.gsm.im.service.group.service.ImGroupService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +38,7 @@ import java.util.UUID;
 
 /**
  * @description:
- * @author: lld
+ * @author: gsm
  * @version: 1.0
  */
 @Service
@@ -55,7 +62,7 @@ public class ImGroupServiceImpl implements ImGroupService {
         } else {
             query.eq("group_id", req.getGroupId());
             query.eq("app_id", req.getAppId());
-            Integer integer = imGroupDataMapper.selectCount(query);
+            Long integer = imGroupDataMapper.selectCount(query);
             if (integer > 0) {
                 throw new ApplicationException(GroupErrorCode.GROUP_IS_EXIST);
             }
@@ -99,7 +106,7 @@ public class ImGroupServiceImpl implements ImGroupService {
         } else {
             query.eq("group_id", req.getGroupId());
             query.eq("app_id", req.getAppId());
-            Integer integer = imGroupDataMapper.selectCount(query);
+            Long integer = imGroupDataMapper.selectCount(query);
             if (integer > 0) {
                 throw new ApplicationException(GroupErrorCode.GROUP_IS_EXIST);
             }
@@ -131,7 +138,7 @@ public class ImGroupServiceImpl implements ImGroupService {
 
     /**
      * @param [req]
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description 修改群基础信息，如果是后台管理员调用，则不检查权限，如果不是则检查权限，如果是私有群（微信群）任何人都可以修改资料，公开群只有管理员可以修改
      * 如果是群主或者管理员可以修改其他信息。
      * @author chackylee
@@ -188,7 +195,7 @@ public class ImGroupServiceImpl implements ImGroupService {
 
     /**
      * @param [req]
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description 获取用户加入的群组
      * @author chackylee
      */
@@ -219,7 +226,7 @@ public class ImGroupServiceImpl implements ImGroupService {
             if (req.getLimit() == null) {
                 resp.setTotalCount(groupList.size());
             } else {
-                resp.setTotalCount(imGroupDataMapper.selectCount(query));
+                resp.setTotalCount(imGroupDataMapper.selectCount(query).intValue());
             }
             return ResponseVO.successResponse(resp);
         } else {
@@ -230,7 +237,7 @@ public class ImGroupServiceImpl implements ImGroupService {
 
     /**
      * @param [req]
-     * @return com.lld.im.common.ResponseVO
+     * @return com.gsm.im.common.ResponseVO
      * @description 解散群组，只支持后台管理员和群主解散
      * @author chackylee
      */
