@@ -1,10 +1,12 @@
 package com.gsm.im.tcp.server;
 
 
+import com.gsm.im.codec.config.BootstrapConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -18,15 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LimWebSocketServer {
 
-    private int port;
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
+    ServerBootstrap server;
+    BootstrapConfig.TcpConfig config;
 
-    public LimWebSocketServer(int port) {
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup();
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-        ServerBootstrap server = new ServerBootstrap();
-        server.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 10240) //服务端的可连接队列
+    public LimWebSocketServer(BootstrapConfig.TcpConfig config) {
+        bossGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();
+        server = new ServerBootstrap();
+        server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 10240) //服务端的可连接队列
                 .option(ChannelOption.SO_REUSEADDR, true) //参数表示是否支持重新链接
                 .childOption(ChannelOption.TCP_NODELAY, true) //参数表示是否开启Nagle算法
                 .childOption(ChannelOption.SO_KEEPALIVE, true) //参数表示是否开启TCP底层心跳机制
@@ -48,8 +51,12 @@ public class LimWebSocketServer {
                          */
                         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
                     }
-                })
-                .bind(port);
+                });
+    }
+
+    public void start() {
+        int port = this.config.getWebSocketPort();
+        this.server.bind(port);
         log.info("netty websocket server start success,port = {}", port);
     }
 }

@@ -1,9 +1,11 @@
 package com.gsm.im.tcp.server;
 
 
+import com.gsm.im.codec.config.BootstrapConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -12,12 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LimServer {
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
+    ServerBootstrap server;
+    BootstrapConfig.TcpConfig config;
 
-    private int port;
-
-    public LimServer(int port) {
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup();
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+    public LimServer(BootstrapConfig.TcpConfig config) {
+        bossGroup = new NioEventLoopGroup(config.getBossThreadSize());
+        workerGroup = new NioEventLoopGroup(config.getWorkThreadSize());
         ServerBootstrap server = new ServerBootstrap();
         server.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
@@ -30,9 +34,13 @@ public class LimServer {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
 
                     }
-                })
-                .bind(port);
-        log.info("netty server start success,port = {}", port);
+                });
+
     }
 
+    public void start(){
+        Integer tcpPort = this.config.getTcpPort();
+        this.server.bind(tcpPort);
+        log.info("netty server start success,port = {}", tcpPort);
+    }
 }
