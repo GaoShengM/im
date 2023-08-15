@@ -1,7 +1,11 @@
 package com.gsm.im.tcp.server;
 
 
+import com.gsm.im.codec.MessageDecoder;
+import com.gsm.im.codec.MessageEncoder;
 import com.gsm.im.codec.config.BootstrapConfig;
+import com.gsm.im.tcp.handler.HeartBeatHandler;
+import com.gsm.im.tcp.handler.NettyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -31,8 +35,14 @@ public class LimServer {
                 .childOption(ChannelOption.SO_KEEPALIVE, true) //参数表示是否开启TCP底层心跳机制
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-
+                    protected void initChannel(SocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new MessageDecoder());
+                        ch.pipeline().addLast(new MessageEncoder());
+//                        ch.pipeline().addLast(new IdleStateHandler(
+//                                0, 0,
+//                                10));
+                        ch.pipeline().addLast(new HeartBeatHandler(config.getHeartBeatTime()));
+                        ch.pipeline().addLast(new NettyServerHandler(config.getBrokerId(),config.getLogicUrl()));
                     }
                 });
 
