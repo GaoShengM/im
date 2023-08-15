@@ -1,6 +1,7 @@
 package com.gsm.im.common.model.message;
 
-import com.lld.im.common.model.ClientInfo;
+
+import com.gsm.im.common.model.ClientInfo;
 import lombok.Data;
 
 /**

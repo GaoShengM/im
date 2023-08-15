@@ -1,6 +1,7 @@
 package com.gsm.im.codec.pack.user;
 
-import com.lld.im.common.model.UserSession;
+
+import com.gsm.im.common.model.UserSession;
 import lombok.Data;
 
 import java.util.List;

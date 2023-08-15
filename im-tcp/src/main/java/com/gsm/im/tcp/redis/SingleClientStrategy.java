@@ -1,7 +1,8 @@
 package com.gsm.im.tcp.redis;
 
 
-import com.lld.im.codec.config.BootstrapConfig;
+
+import com.gsm.im.codec.config.BootstrapConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
